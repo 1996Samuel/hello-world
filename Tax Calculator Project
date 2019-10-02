@@ -1,0 +1,250 @@
+#Pseudocode
+
+#Initialize income list
+
+#Income_list = []
+# While loop to allow user to enter as many incomes as they want
+# While loop...
+    #prompt user to input income
+    #Append income to income list
+    #ask user if they want to input another income
+
+#Ask user if they are married
+
+#Ask the user if they want to itemize deductions or not
+
+# Initialize deduction list
+# Deduction_list = []
+#If itemize == 'yes':
+    #While loop to allow user to enter as many deductions as they want
+    #While loop...
+        #prompt user to input deduction
+        #Append deduction to deduction list
+        #ask user if they want to input another deduction
+
+#If itemize == 'no':
+    #If married:
+        #Append 24400 to deduction list
+    #elif single:
+        #Append 12200 to deduction list
+
+#Calculate adjusted gross income (by summing the
+# elements in the income and deductions lists and subtracting deductions from income)
+
+#Initialize list to keep track of taxes owed at each bracket
+#taxlist = []
+
+#Initialize a list to keep track of bracket percentages
+#percentlist = [10, ...]
+
+#Calculate how much tax is owed at each tax bracket and add to list
+
+#Different brackets for married vs single
+#Use a nested if statement to determine tax if user's adjusted gross income is IN the bracket vs. not
+
+#If single/married:
+    #if adjusted gross income > 0:
+         #If adjusted gross income > 9700:
+             #Taxowed = adjusted gross income * 0.10
+             #Append taxowed to taxlist
+    #If not:
+        #Taxowed = 9700 * 0.10
+        #Append taxowed to taxlist
+
+#......... do this for each bracket. General form of if statements below.
+
+#General form of if statements
+#if adjusted gross income > bracket minimum:
+    #If adjusted gross income < bracket maximum:
+        #Taxowed = (adjusted gross income - bracket minimum) * multiplier
+        #Append taxowed to taxlist
+    #If not:
+        #Taxowed = (bracket maximum-bracket minimum) * multiplier
+        #Append taxowed to taxlist
+#.....do if statements for rest of tax brackets
+
+#last bracket:
+# if adjusted gross income > max of last bracket:
+    #Taxowed = (adjusted gross income - bracket minimum) * multiplier
+    #Append taxowed to taxlist
+
+#for loop
+#for ...
+    #Print sentences for each bracket extracting the percentages and taxes from taxlist
+
+#Sum taxlist and store in variable totaltax
+#Print sentence with totaltax
+
+#Calculate tax as a percent of adjusted gross income (totaltax/adjusted gross income) * 100
+#Print in sentence
+
+#Calculate tax as a percent of gross income (totaltax/sum(income_list) * 100
+#Print in sentence
+
+
+
+
+
+
+
+
+#Code
+
+#Initialize income list
+income_list = []
+
+#initialize done
+done = 'no'
+#Make while loop for user to enter incomes
+while done != 'yes':
+    income = float(input('Enter an income:\n'))
+    income_list.append(income)
+    done = input('Are you done entering incomes(yes or no)?\n')
+
+#Initialize deduction list
+deduction_list = []
+
+#Initialize done
+done = ''
+
+#Ask user if they are married
+married = input('Are you married?(yes or no)')
+
+#Ask if user wants to itemize
+itemize = input('Do you want to itemize your deductions? (yes or no)')
+
+if itemize == 'yes':
+#Make while loop for user to enter deductions if they wish
+    while done != 'yes':
+        deduction = float(input('Enter a deduction:\n'))
+        deduction_list.append(deduction)
+        done = input('Are you done entering deductions?(yes or no)\n')
+
+#Standard deductions based on marital status if not itemize
+elif itemize == 'no':
+    if married == 'yes':
+        deduction_list.append(24400)
+    elif married == 'no':
+        deduction_list.append(12200)
+
+#Gross income
+
+gross_income = sum(income_list)
+
+#Sum list of incomes and list of deductions
+Adj_gross_income = sum(income_list) - sum(deduction_list)
+
+#Initialize dictionary of taxes owed
+
+#taxdict ={0 : 0, 1: 0, 2: 0, 3:0, 4:0, 5:0, 6:0}
+
+#Initialize list of taxes owed
+
+taxlist =[0] * 7
+
+percentlist =[10, 12, 22, 24, 32, 35, 37]
+
+#Calculate amount owed for each tax bracket
+
+if married == 'no':
+    if Adj_gross_income > 0:
+        if Adj_gross_income < 9700:
+            tax = Adj_gross_income * 0.1
+            taxlist[0] = tax
+        else:
+            tax = 9700 * 0.1
+            taxlist[0] = tax
+    if Adj_gross_income > 9700:
+        if Adj_gross_income < 39475:
+            tax2 = (Adj_gross_income - 9700) * 0.12
+            taxlist[1] = tax2
+        else:
+            tax2 = 29775 * 0.1
+            taxlist[1] = tax2
+    if Adj_gross_income > 39475:
+        if Adj_gross_income < 84200:
+            tax3 = (Adj_gross_income - 39475) * 0.22
+            taxlist[2] = tax3
+        else:
+            tax3 = 44275 * 0.22
+            taxlist[2] = tax3
+    if Adj_gross_income > 84200:
+        if Adj_gross_income < 160725:
+            tax4 = (Adj_gross_income - 84200) * 0.24
+            taxlist[3] = tax4
+        else:
+            tax4 = 76525 * 0.24
+            taxlist[3] = tax4
+    if Adj_gross_income > 160725:
+        if Adj_gross_income < 204100:
+            tax5 = (Adj_gross_income - 160725) * 0.32
+            taxlist[4] = tax5
+        else:
+            tax5 = 43375 * 0.32
+            taxlist[4] = tax5
+    if Adj_gross_income > 204100:
+        if Adj_gross_income < 510300:
+            tax6 = (Adj_gross_income - 204100) * 0.35
+            taxlist[5] = tax6
+        else:
+            tax6 = 306200 * 0.35
+            taxlist[5] = tax6
+    if Adj_gross_income > 510300:
+        tax7 = (Adj_gross_income - 510300) * 0.37
+        taxlist[6] = tax7
+
+if married == 'yes':
+    if Adj_gross_income > 0:
+        if Adj_gross_income < 9700:
+            tax = Adj_gross_income * 0.1
+            taxlist[0] = tax
+        else:
+            tax = 9700 * 0.1
+            taxlist[0] = tax
+    if Adj_gross_income > 9700:
+        if Adj_gross_income < 39475:
+            tax2 = (Adj_gross_income - 9700) * 0.12
+            taxlist[1] = tax2
+        else:
+            tax2 = 29775 * 0.1
+            taxlist[1] = tax2
+    if Adj_gross_income > 39475:
+        if Adj_gross_income < 84200:
+            tax3 = (Adj_gross_income - 39475) * 0.22
+            taxlist[2] = tax3
+        else:
+            tax3 = 44275 * 0.22
+            taxlist[2] = tax3
+    if Adj_gross_income > 84200:
+        if Adj_gross_income < 160725:
+            tax4 = (Adj_gross_income - 84200) * 0.24
+            taxlist[3] = tax4
+        else:
+            tax4 = 76525 * 0.24
+            taxlist[3] = tax4
+    if Adj_gross_income > 160725:
+        if Adj_gross_income < 204100:
+            tax5 = (Adj_gross_income - 160725) * 0.32
+            taxlist[4] = tax5
+        else:
+            tax5 = 43375 * 0.32
+            taxlist[4] = tax5
+    if Adj_gross_income > 204100:
+        if Adj_gross_income < 306175:
+            tax6 = (Adj_gross_income - 204100) * 0.35
+            taxlist[5] = tax6
+        else:
+            tax6 = 102075 * 0.35
+            taxlist[5] = tax6
+    if Adj_gross_income > 306175:
+            tax7 = (Adj_gross_income - 306175) * 0.37
+            taxlist[6] = tax7
+
+for i in range(0,len(percentlist)):
+    print('Taxes owed at',percentlist[i],'% : $',taxlist[i])
+
+Totaltax = sum(taxlist)
+print('Total taxes owed: %f' % Totaltax)
+
+print('Taxes as a percentage of adjusted gross income:', int((Totaltax/Adj_gross_income)*100))
+print('Taxes as a percentage of gross income:', int((Totaltax/gross_income)*100))
